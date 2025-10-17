@@ -1,11 +1,14 @@
-FROM payara/server-full:latest
+# Use the official GlassFish image
+FROM glassfish:6.2.5-jdk17
 
-# Copy the WAR file into the autodeploy directory
-COPY bank.war $DEPLOY_DIR
+# Copy your WAR file into the autodeploy folder
+COPY app.war /glassfish5/glassfish/domains/domain1/autodeploy/app.war
 
-# Expose the port Payara uses (default is 8080)
-EXPOSE 8080
+# Expose GlassFish default ports
+EXPOSE 8080 4848
 
-# Start Payara in verbose mode
-CMD ["asadmin", "start-domain", "--verbose"]
+# Start the GlassFish domain
+CMD ["asadmin", "start-domain", "-v"]
+
+
 
