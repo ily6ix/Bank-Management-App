@@ -1,14 +1,19 @@
-# Use the official GlassFish image
-FROM glassfish:6.2.5-jdk17
+# Use official GlassFish 5.1 (JDK 8) base image
+FROM glassfish:5.0-jdk8
 
-# Copy your WAR file into the autodeploy folder
-COPY bank.war /glassfish5/glassfish/domains/domain1/autodeploy/app.war
+# Remove default apps if any
+RUN rm -rf /glassfish5/glassfish/domains/domain1/autodeploy/*
+
+# Copy your WAR into the autodeploy folder
+COPY bank.war /glassfish5/glassfish/domains/domain1/autodeploy/bank.war
 
 # Expose GlassFish default ports
 EXPOSE 8080 4848
 
-# Start the GlassFish domain
+# Start GlassFish domain
 CMD ["asadmin", "start-domain", "-v"]
+
+
 
 
 
